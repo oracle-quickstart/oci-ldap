@@ -1,0 +1,47 @@
+### OCI Authentication details
+tenancy_ocid = "<tenancy OCID>"
+user_ocid = "<user OCID>"
+fingerprint= "<PEM key fingerprint>"
+private_key_path = "<path to the private key that matches the fingerprint above>"
+region = "<region in which to operate, example: us-ashburn-1, us-phoenix-1>"
+
+# Compartment
+compartment_ocid = "<compartment OCID>"
+
+
+### Public/private keys used on the instance
+ssh_public_key="<Public key used on the instance>"
+ssh_private_key="<private key used on the instance>"
+network_cidrs = "<cidr for vcn>"
+
+/*
+  glusterfs_server_volume_type can set glusterfs Volume Types as follows:
+  1. Distributed Volume: "";
+  2. Replicated Volume: "replica [<count>]", such as "replica 2";
+  3. Arbiter configuration for replica volumes: "replica [<count>] arbiter [<brick NO.>]", such as "replica 3 arbiter 1";
+  4. Striped Volume: "stripe [<count>]", such as "stripe 2";
+  5. Distributed Striped Volume: "stripe [<count>]", such as "stripe 2";
+  6. Distributed Replicated Volume: "replica [<count>]", such as "replica 2";
+  7. Distributed Striped Replicated Volume: "stripe [<count>] replica [<count>]", such as "stripe 2 replica 2";
+  8. Striped Replicated Volume: "stripe [<count>] replica [<count>]", such as "stripe 2 replica 2";
+  9. Dispersed Volume: "disperse [<count>] redundancy <count>", such as "disperse 2 redundancy 2";
+  10. Distributed Dispersed Volume: "disperse [<count>] redundancy <count>", such as "disperse 2 redundancy 2";
+
+  When glusterfs_server_volume_type is not specified or specified as "", the volume type will be "distribute" type as default;
+*/
+glusterfs_server_volume_type = "<glusterfs Volume Types>"
+/*
+  glusterfs_server_transport_type can set glusterfs transport type as follows:
+  1. "";
+  2. "tcp";
+  GlusterFS supports two kinds of transport for communication between glusterfs clients and glusterfs bricks:
+  One is TCP, the other is RDMA. However, since RDMA needs special network adapter card to setup, hence only TCP is supported in this version.
+  When glusterfs_server_transport_type is not specified, "tcp" is used as the default.
+*/
+glusterfs_server_transport_type = "<transport for communication between glusterfs clients and glusterfs bricks>"
+
+server_count = <gluster server count, should larger than 0 >
+client_count = <gluster client count, should larger or equal than 0 >
+
+bastion_ssh_public_key="<Public key filepath used on the bastion host>"
+bastion_ssh_private_key="<private key filepath used on the bastion host>"

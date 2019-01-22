@@ -6,19 +6,22 @@
 ### 3- Check if mounted successfully by command "df"
 ######################################################################################################################################################
 
-exec &> bootstrap-client-logfile.txt
+exec &> bootstrap-ldapclient-logfile.txt
 set -x
 
 export server_host_name="${server_host_name}"
 echo "server_host_name is $server_host_name"
 
-export nis_domain_name="${nis_domain_name}"
-echo "nis_domain_name is $nis_domain_name"
+export ldap_domain_name="${ldap_domain_name}"
+echo "ldap_domain_name is $ldap_domain_name"
 
 export server_domain_name="${server_domain_name}"
 echo "server_domain_name is $server_domain_name"
 
-export nis_server_full_hostname=$server_host_name.$server_domain_name
-echo "nis_server_full_hostname is $nis_server_full_hostname"
+export ldap_server_full_hostname=$server_host_name.$server_domain_name
+echo "ldap_server_full_hostname is $ldap_server_full_hostname"
+
+export ldap_sudo_group_name="${ldap_sudo_group_name}"
+echo "ldap_sudo_group_name is $ldap_sudo_group_name"
 
 
