@@ -40,3 +40,6 @@ yum -y install openldap compat-openldap openldap-clients openldap-servers openld
 #interact
 #EOD
 slappasswd -s welcome1
+cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+cp /home/opc/slapd.conf /etc/openldap/slapd.conf
+
