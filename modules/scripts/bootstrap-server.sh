@@ -2,9 +2,9 @@
 #######################################################################################################################################################
 ### This bootstrap script runs on glusterfs servers and does the following
 ### 1- install & start glusterfs server packages on all server nodes
-### 2-install openldap
-### 3-config ldap server and client
-### 4-check ldap
+### 2- Prepare bricks for creating glusterfs volume
+### 3- Only open the needed ports in firewall
+### 4- Add each sever into glusterfs peers
 ######################################################################################################################################################
 exec &> bootstrap-ldapserver-logfile.txt
 set -x
@@ -39,7 +39,27 @@ yum -y install openldap compat-openldap openldap-clients openldap-servers openld
 #send "y\r"
 #interact
 #EOD
-slappasswd -s welcome1
+echo rootpw `slappasswd -s welcome1` > /home/opc/slappasswd
+echo `slappasswd -s welcome1` >/home/opc/ssa
+var1=$(cat /home/opc/ssa)
+var=$(cat /home/opc/slappasswd)
+sed -i "s/rootpw/`echo $var`/g" slapd.conf
 cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
-cp /home/opc/slapd.conf /etc/openldap/slapd.conf
+cp /home/opc/slapd.conf /etc/openldap/slapd.confcat
+sed -i "s/olcRootPW\:/olcRootPW\:  `echo $var1`/g" 2.ldif
+cp /home/opc/2.ldif /etc/openldap/slapd.d/cn=config/olcDatabase={2}hdb.ldif
+sed -i "s/cn=Manager,dc=my-domain,dc=com/cn=root,dc=c9lab,dc=oracle,dc=com/g" /etc/openldap/slapd.d/cn=config/olcDatabase={1}monitor.ldif
+systemctl enable slapd
+systemctl start slapd
+systemctl status slapd
+ldapadd    -Y EXTERNAL -H ldapi:/// -f   /etc/openldap/schema/cosine.ldif
+ldapadd    -Y EXTERNAL -H ldapi:/// -f   /etc/openldap/schema/inetorgperson.ldif  
+ldapadd    -Y EXTERNAL -H ldapi:/// -f  /etc/openldap/schema/nis.ldif
+ldapadd    -Y EXTERNAL -H ldapi:/// -f  /etc/openldap/schema/core.ldif
+ldapadd    -Y EXTERNAL -H ldapi:/// -f  /etc/openldap/schema/collective.ldif
+ldapadd    -Y EXTERNAL -H ldapi:/// -f  /etc/openldap/schema/corba.ldif
 
+ldapadd -h localhost -p 389 -D cn=root,dc=c9lab,dc=oracle,dc=com -w welcome1 -f base.ldif
+ldapadd -h localhost -p 389 -D cn=root,dc=c9lab,dc=oracle,dc=com -w welcome1 -f users.ldif 
+ldapadd -h localhost -p 389 -D cn=root,dc=c9lab,dc=oracle,dc=com -w welcome1 -f groups.ldif
+ldapadd -h localhost -p 389 -D cn=root,dc=c9lab,dc=oracle,dc=com -w welcome1 -f sudogroup.ldif 
