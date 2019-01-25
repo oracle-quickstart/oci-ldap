@@ -1,10 +1,4 @@
-# Oracle Cloud Infrastructure NIS Terraform Module
-The Network Information Service, or NIS (originally called Yellow Pages or YP),
-is a client–server directory service protocol for distributing system configuration data such as user and host names between computers on a computer network.
-For the convenience of customers to install NIS quickly, the Oracle Cloud Infrastructure NIS Terraform Module provides a Terraform-based NIS installation solution on Oracle Cloud Infrastructure (OCI).  
-By setting simplest parameters, customer can build their own NIS in a short time.
-
-
+# Oracle Cloud Infrastructure LDAP Terraform Module
 
 ## Prerequisites
 
