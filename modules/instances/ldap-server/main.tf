@@ -46,6 +46,28 @@ resource "oci_core_instance" "LDAPServerInstance" {
     content     = "${data.template_file.install_ldap_server.rendered}"
     destination = "~/bootstrap-server.sh"
   }
+  provisioner "file" {
+    content     = "${data.template_file.install_ldap_server.rendered}"
+    destination = "~/config-server.sh"
+  }
+  provisioner "file" {
+    content     = "${data.template_file.install_ldap_server.rendered}"
+    destination = "~/slapd.ldif"
+  }
+  provisioner "file" {
+    content     = "${data.template_file.install_ldap_server.rendered}"
+    destination = "~/2.ldif"
+  }
+  provisioner "file" {
+    content     = "${data.template_file.install_ldap_server.rendered}"
+    destination = "~/main.ldif"
+  }
+  provisioner "file" {
+    content     = "${data.template_file.install_ldap_server.rendered}"
+    destination = "~/groups.ldif"
+  }
+  
+
 
   provisioner "remote-exec" {
     inline = [

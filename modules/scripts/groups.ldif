@@ -1,0 +1,20 @@
+dn: cn=Group2,ou=Group,dc=c9lab,dc=oracle,dc=com
+objectClass: top
+objectclass: posixGroup
+cn: Group2
+gidNumber: 4332
+memberUid:
+
+dn: cn=Group3,ou=Group,dc=c9lab,dc=oracle,dc=com
+objectClass: top
+objectclass: posixGroup
+cn: Group3
+gidNumber: 4333
+memberUid:
+
+dn: cn=Group4,ou=Group,dc=c9lab,dc=oracle,dc=com
+objectClass: top
+objectclass: posixGroup
+cn: Group4
+gidNumber: 4334
+memberUid: ldapuser3
