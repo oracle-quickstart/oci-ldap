@@ -22,7 +22,7 @@ variable "ClientInstanceShape" {
   default = "VM.Standard2.1"
 }
 variable "dnsLabel" {
-  default = "nis"
+  default = "ldap"
 }
 
 variable "network_cidrs" {
@@ -73,10 +73,10 @@ variable "bastion_shape" {
 variable "availability_domains_idx" {
   default = 0
 }
-variable "nis_domain_name" {
-  default = "nis.oci.com"
+variable "ldap_domain_name" {
+  default = "ldap.oci.com"
 }
-variable "nis_sudo_group_name" {
+variable "ldap_sudo_group_name" {
   default = "sudogroup"
 }
 variable "assign_public_ip_to_vm" {
