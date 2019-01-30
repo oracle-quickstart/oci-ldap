@@ -1,0 +1,9 @@
+dn: cn=sudogroup,ou=Group,dc=c9lab,dc=oracle,dc=com
+objectClass: top
+objectclass: posixGroup
+cn: sudogroup
+gidNumber: 1194
+memberUid: ldapuser2
+memberUid: ldapuser3
+memberUid: ldapuser4
+memberUid: ldapuser5
