@@ -24,4 +24,9 @@ echo "ldap_server_full_hostname is $ldap_server_full_hostname"
 export ldap_sudo_group_name="${ldap_sudo_group_name}"
 echo "ldap_sudo_group_name is $ldap_sudo_group_name"
 
+sudo yum install openldap openldap-clients  sssd
+rpm -qa | grep sss
+cat   /etc/sssd/sssd.conf
+cat  /etc/pam.d/system-auth-ac
 
+suso /bin/systemctl restart  sshd.service

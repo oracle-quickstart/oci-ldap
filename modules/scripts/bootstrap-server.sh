@@ -53,7 +53,7 @@ var1=$(cat /home/opc/ssa)
 var=$(cat /home/opc/slappasswd)
 sed -i "s/rootpw/`echo $var`/g" slapd.conf
 cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
-cp /home/opc/slapd.conf /etc/openldap/slapd.confcat
+cp /home/opc/slapd.conf /etc/openldap/slapd.conf
 sed -i "s/olcRootPW\:/olcRootPW\:  `echo $var1`/g" 2.ldif
 cp /home/opc/2.ldif /etc/openldap/slapd.d/cn=config/olcDatabase={2}hdb.ldif
 sed -i "s/cn=Manager,dc=my-domain,dc=com/cn=root,dc=c9lab,dc=oracle,dc=com/g" /etc/openldap/slapd.d/cn=config/olcDatabase={1}monitor.ldif
