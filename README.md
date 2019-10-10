@@ -1,4 +1,4 @@
-# oci-quickstart-ldap
+# oci-ldap
 These are Terraform modules that deploy [LDAP](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) on [Oracle Cloud Infrastructure (OCI)](https://cloud.oracle.com/en_US/cloud-infrastructure).
 
 ## Prerequisites
