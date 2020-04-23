@@ -1,6 +1,3 @@
-# ------------------------------------------------------------------------------
-# Setup Bastion Host
-# ------------------------------------------------------------------------------
 resource "oci_core_instance" "LdapBastion" {
   availability_domain = "${data.template_file.ad_names.*.rendered[var.availability_domains_idx]}"
   compartment_id      = "${var.compartment_ocid}"
@@ -53,13 +50,13 @@ resource "oci_core_instance" "LDAPClientInstances" {
   count               = "${var.client_count}"
   availability_domain = "${data.template_file.ad_names.*.rendered[var.availability_domains_idx]}"
   compartment_id      = "${var.compartment_ocid}"
-  display_name        = "${var.ldap_client_hostname_prefix}${count.index+1}"
+  display_name        = "${var.ldap_client_hostname_prefix}${count.index + 1}"
   shape               = "${var.ClientInstanceShape}"
 
   create_vnic_details {
     subnet_id        = "${oci_core_subnet.LDAPClientSubnetAD.id}"
-    display_name     = "${var.ldap_client_hostname_prefix}${count.index+1}"
-    hostname_label   = "${var.ldap_client_hostname_prefix}${count.index+1}"
+    display_name     = "${var.ldap_client_hostname_prefix}${count.index + 1}"
+    hostname_label   = "${var.ldap_client_hostname_prefix}${count.index + 1}"
     assign_public_ip = false
   }
 

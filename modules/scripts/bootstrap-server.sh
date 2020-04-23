@@ -9,7 +9,6 @@
 exec &> bootstrap-ldapserver-logfile.txt
 set -x
 
-
 echo "ldap_server_sercure_net_list is $ldap_server_sercure_net_list"
 ldap_server_sercure_net_array=($ldap_server_sercure_net_list)
 ldap_server_sercure_net_array_size="$${#ldap_server_sercure_net_array[@]}"
@@ -21,32 +20,16 @@ echo "ldap_sudo_group_name is $ldap_sudo_group_name"
 sudo yum -y install ypserv-2.31-11.el7.x86_64 rpcbind-0.2.0-47.el7.x86_64 expect-5.45-14.el7_1.x86_64
 this_hostname=`hostname -f`
 echo $this_hostname
-#first_dot_index=`expr index $this_hostname '.'`
-#ldap_domain_idex=$((first_dot_index + 1))
-#ldap_domain_name=`expr substr $this_hostname $ldap_domain_idex $${#this_hostname}`
 
-#export ldap_domain_name="${ldap_domain_name}"
 echo "ldap_domain_name is $ldap_domain_name"
 echo $ldap_domain_name
-
-
-
-
-
-
-
 
 sed -i '/SELINUX/s/enforcing/disabled/' /etc/selinux/config
 setenforce 0
 systemctl disable firewalld.service
 systemctl stop firewalld.service
 yum -y install openldap compat-openldap openldap-clients openldap-servers openldap-servers-sql openldap-devel migrationtools
-#/usr/bin/expect <<EOD
-#spawn yum -y install openldap compat-openldap openldap-clients openldap-servers openldap-servers-sql openldap-devel migrationtools
-#expect "\[y\/d\/N\]"
-#send "y\r"
-#interact
-#EOD
+
 echo rootpw `sudo slappasswd -s welcome1` > /home/opc/slappasswd
 echo `sudo slappasswd -s welcome1` >/home/opc/ssa
 var1=$(cat /home/opc/ssa)

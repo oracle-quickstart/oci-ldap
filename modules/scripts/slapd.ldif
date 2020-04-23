@@ -3,7 +3,6 @@
 # This file should NOT be world readable.
 #
 
-
 include /etc/openldap/schema/corba.schema
 include /etc/openldap/schema/core.schema
 include /etc/openldap/schema/cosine.schema
@@ -17,29 +16,23 @@ include /etc/openldap/schema/openldap.schema
 include /etc/openldap/schema/ppolicy.schema
 include /etc/openldap/schema/collective.schema
 
-
 # Allow LDAPv2 client connections.  This is NOT the default.
 allow bind_v2
-
 
 # Do not enable referrals until AFTER you have a working directory
 # service AND an understanding of referrals.
 #referral ldap://root.openldap.org
 
-
 pidfile /var/run/openldap/slapd.pid
 argsfile /var/run/openldap/slapd.args
-
 
 # Load dynamic backend modules
 # - modulepath is architecture dependent value (32/64-bit system)
 # - back_sql.la overlay requires openldap-server-sql package
 # - dyngroup.la and dynlist.la cannot be used at the same time
 
-
 # modulepath /usr/lib/openldap
 # modulepath /usr/lib64/openldap
-
 
 # moduleload accesslog.la
 # moduleload auditlog.la

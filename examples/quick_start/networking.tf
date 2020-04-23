@@ -1,6 +1,3 @@
-############################################
-# Create VCN
-############################################
 resource "oci_core_virtual_network" "NISVCN" {
   cidr_block     = "${var.network_cidrs}"
   compartment_id = "${var.compartment_ocid}"
@@ -8,27 +5,18 @@ resource "oci_core_virtual_network" "NISVCN" {
   display_name   = "NISVCN"
 }
 
-############################################
-# Create Internet Gateway
-############################################
 resource "oci_core_internet_gateway" "NISInternetG" {
   compartment_id = "${var.compartment_ocid}"
   display_name   = "NISInternetG"
   vcn_id         = "${oci_core_virtual_network.NISVCN.id}"
 }
 
-############################################
-# Create NAT Gateway
-############################################
 resource "oci_core_nat_gateway" "NISNatG" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_virtual_network.NISVCN.id}"
   display_name   = "NISNatG"
 }
 
-############################################
-# Create Route Table
-############################################
 resource "oci_core_route_table" "PublicRouteTable" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_virtual_network.NISVCN.id}"
@@ -52,9 +40,6 @@ resource "oci_core_route_table" "PrivateRouteTable" {
   }
 }
 
-############################################
-# Create Security List
-############################################
 resource "oci_core_security_list" "PrivateSeclist" {
   compartment_id = "${var.compartment_ocid}"
   display_name   = "PrivateSeclist"
@@ -172,9 +157,6 @@ resource "oci_core_security_list" "BastionSeclist" {
   ]
 }
 
-############################################
-# Create NIS Server Subnet
-############################################
 resource "oci_core_subnet" "NISServerSubnetAD" {
 
   availability_domain = "${data.template_file.ad_names.*.rendered[var.availability_domains_idx]}"
@@ -186,15 +168,11 @@ resource "oci_core_subnet" "NISServerSubnetAD" {
 
   security_list_ids = [
     "${oci_core_security_list.PrivateSeclist.id}",
-    #"${oci_core_virtual_network.NISVCN.default_security_list_id}",
   ]
 
   dns_label = "${var.dnsLabel}ser"
 }
 
-############################################
-# Create NIS Client Subnet
-############################################
 resource "oci_core_subnet" "NISClientSubnetAD" {
 
   availability_domain = "${data.template_file.ad_names.*.rendered[var.availability_domains_idx]}"
@@ -211,9 +189,6 @@ resource "oci_core_subnet" "NISClientSubnetAD" {
   dns_label = "${var.dnsLabel}cli"
 }
 
-############################################
-# Create Bastion Subnet
-############################################
 resource "oci_core_subnet" "BastionSubnet" {
   availability_domain = "${data.template_file.ad_names.*.rendered[var.availability_domains_idx]}"
   compartment_id      = "${var.compartment_ocid}"

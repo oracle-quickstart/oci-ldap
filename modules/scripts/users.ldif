@@ -4,7 +4,7 @@ cn: ldapuser2
 objectClass: posixAccount
 objectClass: account
 objectClass: top
-userPassword: welcome1
+userPassword: password
 loginShell: /bin/bash
 uidNumber: 54332
 gidNumber: 4332
@@ -16,7 +16,7 @@ cn: ldapuser3
 objectClass: posixAccount
 objectClass: account
 objectClass: top
-userPassword: welcome1
+userPassword: password
 loginShell: /bin/bash
 uidNumber: 54333
 gidNumber: 4333
@@ -29,7 +29,7 @@ sn: ldapuser4
 objectClass: posixAccount
 objectClass: inetOrgPerson
 objectClass: top
-userPassword: welcome1
+userPassword: password
 loginShell: /bin/bash
 uidNumber: 54334
 gidNumber: 4334
@@ -42,7 +42,7 @@ sn: ldapuser5
 objectClass: posixAccount
 objectClass: inetOrgPerson
 objectClass: top
-userPassword: welcome1
+userPassword: password
 loginShell: /bin/bash
 uidNumber: 54335
 gidNumber: 4335

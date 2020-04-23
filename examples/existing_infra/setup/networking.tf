@@ -1,6 +1,3 @@
-############################################
-# Create VCN
-############################################
 resource "oci_core_virtual_network" "LDAPVCN" {
   cidr_block     = "${var.network_cidrs}"
   compartment_id = "${var.compartment_ocid}"
@@ -8,27 +5,18 @@ resource "oci_core_virtual_network" "LDAPVCN" {
   display_name   = "LDAPVCN"
 }
 
-############################################
-# Create Internet Gateway
-############################################
 resource "oci_core_internet_gateway" "LDAPInternetG" {
   compartment_id = "${var.compartment_ocid}"
   display_name   = "LDAPInternetG"
   vcn_id         = "${oci_core_virtual_network.LDAPVCN.id}"
 }
 
-############################################
-# Create NAT Gateway
-############################################
 resource "oci_core_nat_gateway" "LDAPNatG" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_virtual_network.LDAPVCN.id}"
   display_name   = "LDAPNatG"
 }
 
-############################################
-# Create Route Table
-############################################
 resource "oci_core_route_table" "PublicRouteTable" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_virtual_network.LDAPVCN.id}"
@@ -188,14 +176,9 @@ resource "oci_core_subnet" "LDAPServerSubnetAD" {
     "${oci_core_security_list.PrivateSeclist.id}",
   ]
 
-  #"${oci_core_virtual_network.LDAPVCN.default_security_list_id}",
-
   dns_label = "${var.dnsLabel}ser"
 }
 
-############################################
-# Create LDAP Client Subnet
-############################################
 resource "oci_core_subnet" "LDAPClientSubnetAD" {
   availability_domain = "${data.template_file.ad_names.*.rendered[var.availability_domains_idx]}"
   cidr_block          = "${cidrsubnet(oci_core_virtual_network.LDAPVCN.cidr_block, 12 , count.index + 1)}"
@@ -211,9 +194,6 @@ resource "oci_core_subnet" "LDAPClientSubnetAD" {
   dns_label = "${var.dnsLabel}cli"
 }
 
-############################################
-# Create Bastion Subnet
-############################################
 resource "oci_core_subnet" "BastionSubnet" {
   availability_domain = "${data.template_file.ad_names.*.rendered[var.availability_domains_idx]}"
   compartment_id      = "${var.compartment_ocid}"

@@ -1,8 +1,5 @@
-# ---------------------------------------------------------------------------------------------------------------------
-# SETUP THE LDAP
-# ---------------------------------------------------------------------------------------------------------------------
 module "setup_ldap" {
-  source                          = "../../modules/instance-configure"
+  source                           = "../../modules/instance-configure"
   ldap_login_host_public_ip        = "${var.ldap_login_host_public_ip}"
   ldap_login_user                  = "${var.ldap_login_user}"
   ldap_login_host_ssh_private_key  = "${var.ldap_login_host_ssh_private_key}"

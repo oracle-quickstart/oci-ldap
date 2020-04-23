@@ -12,7 +12,7 @@ variable "ldap_server_user" {
 }
 variable "ldap_server_ssh_private_key" {}
 variable "ldap_server_sercure_net_list" {
-  type = "list"
+  type    = "list"
   default = []
 }
 variable "ldap_client_private_ip_list" {
